@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nikhat Momin — IT Engineering Portfolio</title>
+<meta name="description" content="Nikhat Momin — IT Engineering student. Projects, E-Waste & Environmental Management assignments, Device Anatomy 2.0, EcoScrap Green Hackathon.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS (unchanged from your original portfolio) ============ */
+:root{
+  --bg:#0c1411; --bg-deep:#080d0a;
+  --panel:rgba(20,32,27,0.55); --panel-light:rgba(255,255,255,0.03);
+  --cream:#f4efe3; --cream-dim:#c9c4b4; --cream-dimmer:#8f9089;
+  --emerald:#3ecf8e; --emerald-2:#2dd4bf;
+  --emerald-border:rgba(94,209,155,0.22); --emerald-border-hi:rgba(94,209,155,0.5);
+  --emerald-glow:rgba(62,207,142,0.16);
+  --gold:#e7c17e; --rose:#e0a9a0; --sky:#9ecbe0; --butter:#e3d391;
+  --radius:1.75rem; --radius-sm:1.1rem; --maxw:1180px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth; scroll-padding-top:6rem;}
+body{
+  margin:0;
+  background:
+    radial-gradient(ellipse 900px 600px at 15% -5%, rgba(62,207,142,0.10), transparent 60%),
+    radial-gradient(ellipse 800px 700px at 90% 15%, rgba(45,212,191,0.08), transparent 55%),
+    radial-gradient(ellipse 700px 600px at 50% 100%, rgba(231,193,126,0.05), transparent 60%),
+    var(--bg);
+  color:var(--cream); font-family:'Plus Jakarta Sans',sans-serif;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden; position:relative;
+}
+body.locked{overflow:hidden;}
+::selection{background:rgba(62,207,142,0.35); color:#fff;}
+h1,h2,h3,h4{font-family:'Fraunces',serif; margin:0; font-weight:600; letter-spacing:-0.01em;}
+p{line-height:1.7; color:var(--cream-dim); margin:0;}
+a{color:inherit; text-decoration:none;}
+img{max-width:100%; display:block;}
+button{font-family:inherit; cursor:pointer;}
+:focus-visible{outline:2px solid var(--emerald); outline-offset:3px; border-radius:6px;}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 1.75rem;}
+.eyebrow{font-size:0.72rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--emerald); font-weight:600; display:flex; align-items:center; gap:0.5rem;}
+.eyebrow::before{content:''; width:1.4rem; height:1px; background:linear-gradient(90deg,transparent,var(--emerald));}
+
+.blob{position:fixed; border-radius:50%; filter:blur(90px); pointer-events:none; z-index:0; opacity:0.55;}
+.blob-1{width:480px;height:480px; background:radial-gradient(circle,rgba(62,207,142,0.25),transparent 70%); top:-10%; left:-10%; animation:float1 26s ease-in-out infinite;}
+.blob-2{width:420px;height:420px; background:radial-gradient(circle,rgba(45,212,191,0.18),transparent 70%); bottom:5%; right:-8%; animation:float2 30s ease-in-out infinite;}
+.blob-3{width:340px;height:340px; background:radial-gradient(circle,rgba(231,193,126,0.10),transparent 70%); top:45%; left:45%; animation:float1 34s ease-in-out infinite reverse;}
+@keyframes float1{0%,100%{transform:translate(0,0);}50%{transform:translate(40px,60px);}}
+@keyframes float2{0%,100%{transform:translate(0,0);}50%{transform:translate(-50px,-40px);}}
+
+.glass{
+  background:var(--panel); border:1px solid var(--emerald-border);
+  backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px);
+  border-radius:var(--radius);
+  box-shadow:0 20px 60px -20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04);
+  transition:border-color .4s ease, transform .4s ease, box-shadow .4s ease;
+}
+.glass:hover{border-color:var(--emerald-border-hi);}
+
+/* scroll progress */
+.progress{position:fixed; top:0; left:0; height:2px; width:0; z-index:300; background:linear-gradient(90deg,var(--emerald),var(--emerald-2),var(--gold));}
+
+/* ============ NAV ============ */
+.navbar{
+  position:fixed; top:1.1rem; left:50%; transform:translateX(-50%); z-index:100; width:min(96%,1020px);
+  display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  padding:0.65rem 0.7rem 0.65rem 1.1rem; border-radius:999px;
+  background:rgba(15,24,20,0.55); border:1px solid var(--emerald-border);
+  backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); box-shadow:0 15px 40px -15px rgba(0,0,0,0.55);
+}
+.nav-brand{display:flex; align-items:center; gap:0.55rem; font-family:'Fraunces',serif; font-weight:600; font-size:1.02rem; white-space:nowrap;}
+.nav-badge{font-size:0.62rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--emerald); background:var(--emerald-glow); border:1px solid var(--emerald-border); padding:0.28rem 0.65rem; border-radius:999px; font-weight:700; white-space:nowrap;}
+.nav-links{display:flex; align-items:center; gap:1.4rem; font-size:0.86rem; color:var(--cream-dim);}
+.nav-links a{position:relative; padding:0.3rem 0; transition:color .25s ease;}
+.nav-links a:hover,.nav-links a.active{color:var(--cream);}
+.nav-links a::after{content:''; position:absolute; left:0; bottom:-2px; width:0; height:1.5px; background:var(--emerald); transition:width .3s ease;}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+.nav-cta{background:linear-gradient(135deg,var(--emerald),var(--emerald-2)); color:#062018; font-weight:700; font-size:0.82rem; padding:0.55rem 1.15rem; border-radius:999px; box-shadow:0 8px 20px -6px rgba(62,207,142,0.5); transition:transform .25s ease, box-shadow .25s ease;}
+.nav-cta:hover{transform:translateY(-2px); box-shadow:0 12px 26px -6px rgba(62,207,142,0.65);}
+.nav-toggle{display:none; background:none; border:none; color:var(--cream); font-size:1.3rem;}
+.nav-mobile{display:none; position:fixed; top:5rem; left:2%; width:96%; z-index:99; flex-direction:column; padding:1rem; border-radius:1.4rem; background:rgba(12,20,17,0.94); border:1px solid var(--emerald-border); backdrop-filter:blur(20px);}
+.nav-mobile a{padding:0.75rem 0.5rem; border-bottom:1px solid rgba(255,255,255,0.05); color:var(--cream-dim); font-size:0.95rem;}
+.nav-mobile a:last-child{border-bottom:none;}
+
+section{position:relative; z-index:1; padding:6.5rem 0;}
+.sec-head{max-width:40rem; margin-bottom:3rem;}
+.sec-head h2{font-size:clamp(1.7rem,3.4vw,2.4rem); margin-top:0.6rem;}
+.sec-head p{margin-top:0.9rem;}
+
+/* ============ BUTTONS / CHIPS ============ */
+.btn-row{display:flex; gap:0.9rem; flex-wrap:wrap;}
+.btn{padding:0.85rem 1.6rem; border-radius:999px; font-weight:700; font-size:0.9rem; transition:transform .25s ease, box-shadow .25s ease, background .25s ease; display:inline-flex; align-items:center; gap:0.5rem; border:none;}
+.btn-primary{background:linear-gradient(135deg,var(--emerald),var(--emerald-2)); color:#062018; box-shadow:0 10px 28px -8px rgba(62,207,142,0.55);}
+.btn-primary:hover{transform:translateY(-3px); box-shadow:0 16px 34px -8px rgba(62,207,142,0.7);}
+.btn-ghost{background:transparent; border:1px solid var(--emerald-border); color:var(--cream);}
+.btn-ghost:hover{border-color:var(--emerald-border-hi); background:var(--panel-light); transform:translateY(-3px);}
+.proj-btn{padding:0.55rem 1.1rem; border-radius:999px; font-size:0.8rem; font-weight:700; border:1px solid var(--emerald-border); background:transparent; color:var(--cream); display:inline-flex; align-items:center; gap:0.4rem; transition:border-color .25s, transform .25s;}
+.proj-btn:hover{border-color:var(--emerald-border-hi); transform:translateY(-2px);}
+.proj-btn.solid{background:linear-gradient(135deg,var(--emerald),var(--emerald-2)); color:#062018; border:none;}
+.chip-row{display:flex; flex-wrap:wrap; gap:0.5rem;}
+.chip{padding:0.4rem 0.85rem; border-radius:999px; font-size:0.8rem; font-weight:600; border:1px solid; transition:transform .2s ease;}
+.chip:hover{transform:translateY(-2px);}
+.chip.c1{background:rgba(94,209,155,0.12); border-color:rgba(94,209,155,0.35); color:#a9e8c9;}
+.chip.c2{background:rgba(224,169,160,0.12); border-color:rgba(224,169,160,0.35); color:#efc4bd;}
+.chip.c3{background:rgba(158,203,224,0.12); border-color:rgba(158,203,224,0.35); color:#c4e0ef;}
+.chip.c4{background:rgba(227,211,145,0.12); border-color:rgba(227,211,145,0.35); color:#f0e3ab;}
+.chip.c5{background:rgba(231,193,126,0.12); border-color:rgba(231,193,126,0.35); color:#f2dcab;}
+
+/* ============ HERO ============ */
+.hero{padding-top:9.5rem;}
+.hero-grid{display:grid; grid-template-columns:1.05fr 0.95fr; gap:3.5rem; align-items:center;}
+.hero-badge{display:inline-flex; align-items:center; gap:0.5rem; font-size:0.8rem; padding:0.5rem 1rem; border-radius:999px; background:var(--emerald-glow); border:1px solid var(--emerald-border); color:var(--cream-dim); margin-bottom:1.6rem;}
+.hero h1{font-size:clamp(2.3rem,5vw,3.5rem); line-height:1.08; margin-bottom:1.1rem;}
+.grad-text{background:linear-gradient(120deg,var(--emerald) 10%,var(--emerald-2) 55%,var(--gold) 100%); -webkit-background-clip:text; background-clip:text; color:transparent;}
+.hero-sub{font-size:1.12rem; max-width:32rem; margin-bottom:1.35rem;}
+.hero-bio{font-size:0.98rem; max-width:33rem; margin-bottom:1.6rem; color:var(--cream-dimmer);}
+.quote-box{border-left:2px solid var(--emerald); padding:0.9rem 1.3rem; margin-bottom:2rem; font-family:'Fraunces',serif; font-style:italic; font-size:1.05rem; color:var(--cream); background:var(--panel-light); border-radius:0 1rem 1rem 0; max-width:30rem;}
+.photo-stage{position:relative; display:flex; justify-content:center; align-items:center;}
+.photo-frame{position:relative; width:min(100%,360px); border-radius:2.2rem; overflow:hidden; border:1px solid var(--emerald-border); box-shadow:0 30px 70px -20px rgba(0,0,0,0.7); transform:rotate(-2deg); transition:transform .5s ease;}
+.photo-frame:hover{transform:rotate(0) scale(1.02);}
+.photo-frame img{width:100%; height:460px; object-fit:cover; object-position:center 25%;}
+.photo-frame::after{content:''; position:absolute; inset:0; background:linear-gradient(180deg,transparent 55%,rgba(8,13,10,0.75) 100%);}
+.float-badge{position:absolute; padding:0.65rem 1.05rem; border-radius:1.1rem; font-size:0.8rem; font-weight:600; z-index:3; box-shadow:0 15px 35px -12px rgba(0,0,0,0.6); animation:bob 5s ease-in-out infinite;}
+.float-badge.b1{top:8%; left:-8%;}
+.float-badge.b2{bottom:8%; right:-10%; animation-delay:1.2s;}
+@keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+.strip-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1.1rem; margin-top:-3rem;}
+.strip-card{padding:1.5rem 1.4rem;}
+.strip-card .lbl{font-size:0.68rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--emerald); font-weight:700; margin-bottom:0.5rem;}
+.strip-card .val{font-family:'Fraunces',serif; font-size:1.15rem; line-height:1.3;}
+
+/* ============ ABOUT / TOOLKIT / PROJECTS (original content) ============ */
+.about-grid{display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start;}
+.about-story p{margin-bottom:1.15rem; font-size:1.02rem;}
+.about-story p:first-child{font-family:'Fraunces',serif; font-style:italic; font-size:1.2rem; color:var(--cream);}
+.pill-grid{display:flex; flex-direction:column; gap:0.85rem;}
+.pill{padding:1rem 1.3rem; display:flex; align-items:center; gap:0.8rem; font-size:0.95rem;}
+.beyond-grid{display:grid; gap:1.2rem; max-width:46rem;}
+.beyond-grid p{padding:1.6rem 1.9rem; font-size:1.02rem;}
+.tool-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem;}
+.tool-card{padding:1.7rem 1.6rem;}
+.tool-card h4{font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--emerald); margin-bottom:1rem;}
+.proj-intro{max-width:46rem; margin-bottom:2.5rem; font-size:1.02rem;}
+.proj-grid{display:grid; grid-template-columns:1fr 1fr; gap:1.6rem;}
+.proj-card{padding:2rem; display:flex; flex-direction:column; gap:1rem; position:relative; overflow:hidden;}
+.proj-card::before{content:''; position:absolute; top:-40%; right:-30%; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle,var(--emerald-glow),transparent 70%); opacity:0; transition:opacity .4s;}
+.proj-card:hover::before{opacity:1;}
+.proj-cat{font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--emerald-2); font-weight:700;}
+.proj-card h3{font-size:1.35rem;}
+.proj-card p{font-size:0.95rem;}
+.proj-btns{display:flex; gap:0.7rem; margin-top:auto; flex-wrap:wrap;}
+
+/* ============ E-WASTE HUB ============ */
+.stat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; margin-bottom:3.5rem;}
+.stat-card{padding:1.9rem 1.6rem; text-align:center;}
+.stat-num{font-family:'Fraunces',serif; font-size:2.1rem; font-weight:700; color:var(--gold);}
+.stat-lbl{font-size:0.85rem; margin-top:0.4rem;}
+
+/* EcoScrap featured */
+.feature{display:grid; grid-template-columns:1.25fr 1fr; gap:0; overflow:hidden; margin-bottom:4rem; border-color:var(--emerald-border-hi); box-shadow:0 0 0 1px rgba(62,207,142,.08), 0 30px 90px -30px rgba(62,207,142,.25);}
+.feature-preview{padding:1.4rem; background:linear-gradient(160deg,rgba(62,207,142,.08),transparent); border-right:1px solid var(--emerald-border);}
+.browser{border-radius:1rem; overflow:hidden; border:1px solid var(--emerald-border); background:#0a110e; display:flex; flex-direction:column; height:100%; min-height:360px;}
+.browser-bar{display:flex; align-items:center; gap:0.5rem; padding:0.6rem 0.8rem; background:rgba(255,255,255,0.04); border-bottom:1px solid var(--emerald-border);}
+.dots{display:flex; gap:5px;} .dots i{width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,.18); display:block;}
+.url{flex:1; font-size:0.72rem; color:var(--cream-dimmer); background:rgba(0,0,0,.25); padding:0.28rem 0.7rem; border-radius:999px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.browser-body{position:relative; flex:1; display:grid; place-items:center; text-align:center; padding:1.5rem;
+  background:radial-gradient(circle at 30% 20%,rgba(62,207,142,.18),transparent 55%), radial-gradient(circle at 80% 90%,rgba(231,193,126,.12),transparent 50%);}
+.browser-body iframe{position:absolute; inset:0; width:100%; height:100%; border:0; background:#fff;}
+.preview-cta h4{font-size:1.5rem; margin-bottom:0.4rem;}
+.preview-cta p{font-size:0.88rem; margin-bottom:1.1rem;}
+.feature-copy{padding:2.2rem 2rem; display:flex; flex-direction:column; gap:1rem;}
+.badge-gold{align-self:flex-start; font-size:0.68rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold); background:rgba(231,193,126,.12); border:1px solid rgba(231,193,126,.35); padding:0.3rem 0.75rem; border-radius:999px;}
+.feature-copy h3{font-size:1.7rem; line-height:1.15;}
+.impact{display:grid; grid-template-columns:repeat(3,1fr); gap:0.7rem;}
+.impact div{padding:0.8rem 0.6rem; border-radius:var(--radius-sm); background:var(--panel-light); border:1px solid var(--emerald-border); text-align:center;}
+.impact b{display:block; font-family:'Fraunces',serif; font-size:1.2rem; color:var(--gold);}
+.impact span{font-size:0.7rem; color:var(--cream-dimmer);}
+
+/* accordions (shared) */
+.acc{border-top:1px solid var(--emerald-border);}
+.acc-item{border-bottom:1px solid var(--emerald-border);}
+.acc-btn{width:100%; display:flex; justify-content:space-between; align-items:center; gap:1rem; background:none; border:none; color:var(--cream); padding:0.95rem 0.1rem; font-size:0.92rem; font-weight:600; text-align:left;}
+.acc-btn::after{content:'+'; color:var(--emerald); font-size:1.2rem; transition:transform .3s;}
+.acc-item.open .acc-btn::after{transform:rotate(45deg);}
+.acc-panel{display:grid; grid-template-rows:0fr; transition:grid-template-rows .35s ease;}
+.acc-item.open .acc-panel{grid-template-rows:1fr;}
+.acc-inner{overflow:hidden;}
+.acc-inner > *{padding-bottom:1rem;}
+.acc-inner p,.acc-inner li{font-size:0.88rem;}
+.acc-inner ul{margin:0; padding-left:1.1rem; color:var(--cream-dim); line-height:1.75;}
+
+/* assignments */
+.filters{display:flex; gap:0.55rem; flex-wrap:wrap; margin-bottom:1.8rem;}
+.filter{padding:0.5rem 1.05rem; border-radius:999px; border:1px solid var(--emerald-border); background:transparent; color:var(--cream-dim); font-size:0.82rem; font-weight:600; transition:all .25s;}
+.filter:hover{border-color:var(--emerald-border-hi); color:var(--cream);}
+.filter.on{background:var(--emerald-glow); border-color:var(--emerald-border-hi); color:var(--emerald);}
+.filter small{opacity:.6; margin-left:.3rem;}
+.a-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem;}
+.a-card{position:relative; display:flex; flex-direction:column; overflow:hidden; text-align:left; padding:0; color:inherit; cursor:pointer; --mx:50%; --my:0%;}
+.a-card::before{content:''; position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0; transition:opacity .35s; background:radial-gradient(320px circle at var(--mx) var(--my),rgba(62,207,142,.16),transparent 60%);}
+.a-card:hover::before{opacity:1;}
+.a-card:hover{transform:translateY(-6px); box-shadow:0 30px 70px -25px rgba(62,207,142,.3);}
+.a-card.wide{grid-column:span 2;}
+.a-thumb{position:relative; height:170px; overflow:hidden; background:linear-gradient(135deg,rgba(62,207,142,.15),rgba(45,212,191,.05));}
+.a-card.wide .a-thumb{height:210px;}
+.a-thumb img{width:100%; height:100%; object-fit:cover; transition:transform .6s ease;}
+.a-card:hover .a-thumb img{transform:scale(1.06);}
+.a-thumb .glyph{position:absolute; inset:0; display:grid; place-items:center; font-size:2.6rem;}
+.a-thumb::after{content:''; position:absolute; inset:0; background:linear-gradient(180deg,transparent 40%,rgba(12,20,17,.85));}
+.a-tag{position:absolute; left:1rem; bottom:.8rem; z-index:2; font-size:0.66rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--emerald); background:rgba(12,20,17,.7); border:1px solid var(--emerald-border); padding:.25rem .65rem; border-radius:999px;}
+.a-score{position:absolute; right:1rem; bottom:.8rem; z-index:2; font-size:.74rem; font-weight:700; color:var(--gold); background:rgba(12,20,17,.7); border:1px solid rgba(231,193,126,.35); padding:.25rem .65rem; border-radius:999px;}
+.a-body{padding:1.3rem 1.4rem 1.5rem; display:flex; flex-direction:column; gap:.55rem; flex:1; position:relative; z-index:2;}
+.a-date{font-size:.74rem; color:var(--cream-dimmer);}
+.a-body h3{font-size:1.15rem; line-height:1.25;}
+.a-body p{font-size:.88rem;}
+.a-more{margin-top:auto; padding-top:.6rem; font-size:.8rem; font-weight:700; color:var(--emerald);}
+.a-card[hidden]{display:none;}
+
+/* device anatomy */
+.da{display:grid; grid-template-columns:1.05fr 1fr; gap:0; overflow:hidden;}
+.da-view{padding:1.4rem; border-right:1px solid var(--emerald-border); background:rgba(0,0,0,.18); display:flex; flex-direction:column; gap:1rem;}
+.da-stage{position:relative; border-radius:1rem; overflow:hidden; background:#070c09; border:1px solid var(--emerald-border); aspect-ratio:3/4; cursor:zoom-in;}
+.da-stage img{width:100%; height:100%; object-fit:contain; transition:opacity .35s;}
+.da-stage .zoom{position:absolute; right:.8rem; top:.8rem; background:rgba(12,20,17,.75); border:1px solid var(--emerald-border); padding:.3rem .7rem; border-radius:999px; font-size:.72rem; font-weight:700;}
+.da-cap{font-size:.82rem; color:var(--cream-dim); text-align:center;}
+.thumbs{display:flex; gap:.55rem; overflow-x:auto; padding-bottom:.4rem; scrollbar-width:thin; scrollbar-color:var(--emerald-border) transparent;}
+.thumb{flex:0 0 64px; height:80px; border-radius:.6rem; overflow:hidden; border:2px solid transparent; padding:0; background:#070c09; opacity:.6; transition:all .25s;}
+.thumb img{width:100%; height:100%; object-fit:cover;}
+.thumb:hover{opacity:1;} .thumb.on{border-color:var(--emerald); opacity:1;}
+.da-notes{padding:2rem 1.9rem;}
+.da-notes h3{font-size:1.5rem; margin:.5rem 0 .6rem;}
+.meta{display:flex; flex-wrap:wrap; gap:.5rem; margin:1rem 0 1.3rem;}
+.meta span{font-size:.74rem; font-weight:600; padding:.32rem .75rem; border-radius:999px; border:1px solid var(--emerald-border); background:var(--panel-light); color:var(--cream-dim);}
+.meta .grade{color:var(--gold); border-color:rgba(231,193,126,.4);}
+table.mat{width:100%; border-collapse:collapse; font-size:.82rem; margin-bottom:.4rem;}
+table.mat th{text-align:left; font-weight:700; color:var(--emerald); padding:.5rem .6rem .5rem 0; border-bottom:1px solid var(--emerald-border); font-size:.7rem; letter-spacing:.06em; text-transform:uppercase;}
+table.mat td{padding:.55rem .6rem .55rem 0; border-bottom:1px solid rgba(255,255,255,.05); color:var(--cream-dim); vertical-align:top;}
+table.mat td:first-child{color:var(--cream); font-weight:600;}
+.rec{display:inline-block; font-size:.68rem; font-weight:700; padding:.15rem .5rem; border-radius:999px; margin:0 .2rem .2rem 0; background:var(--emerald-glow); color:#a9e8c9; border:1px solid var(--emerald-border);}
+.haz{display:inline-block; font-size:.68rem; font-weight:700; padding:.15rem .5rem; border-radius:999px; background:rgba(224,169,160,.12); color:#efc4bd; border:1px solid rgba(224,169,160,.35);}
+.da-photos{display:grid; grid-template-columns:repeat(3,1fr); gap:.8rem; margin-top:1.5rem;}
+.da-photos button{padding:0; border:1px solid var(--emerald-border); border-radius:1rem; overflow:hidden; background:none; aspect-ratio:4/3; position:relative; cursor:zoom-in;}
+.da-photos img{width:100%; height:100%; object-fit:cover; transition:transform .5s;}
+.da-photos button:hover img{transform:scale(1.07);}
+
+/* pledge tree */
+.tree-wrap{padding:2.5rem; display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; align-items:center; margin-top:4rem;}
+.tree-svg-box{display:flex; justify-content:center;}
+.guest-form{display:flex; flex-direction:column; gap:.9rem;}
+.guest-form input{padding:.9rem 1.1rem; border-radius:1rem; border:1px solid var(--emerald-border); background:rgba(255,255,255,.03); color:var(--cream); font-size:.95rem; font-family:inherit;}
+.guest-form input:focus{outline:none; border-color:var(--emerald-border-hi);}
+.guest-list{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.3rem; max-height:110px; overflow-y:auto;}
+.guest-name{padding:.35rem .75rem; border-radius:999px; font-size:.78rem; background:var(--panel-light); border:1px solid var(--emerald-border); color:var(--cream-dim);}
+.guest-count{font-size:.85rem; color:var(--emerald); font-weight:700;}
+
+.phil-box{text-align:center; max-width:38rem; margin:0 auto; padding:3.2rem 2.5rem;}
+.phil-box h2{font-style:italic; font-size:clamp(1.6rem,3.6vw,2.3rem); margin-bottom:1.2rem; line-height:1.35;}
+.contact-box{padding:3.5rem 3rem; text-align:center;}
+.contact-box p{max-width:34rem; margin:1rem auto 2rem;}
+.contact-box h2{font-size:clamp(1.8rem,3.8vw,2.6rem);}
+footer{padding:3rem 0 2.5rem; text-align:center; color:var(--cream-dimmer); font-size:.85rem; position:relative; z-index:1;}
+
+/* ============ DRAWER + LIGHTBOX ============ */
+.overlay{position:fixed; inset:0; background:rgba(5,9,7,.78); backdrop-filter:blur(6px); z-index:200; opacity:0; pointer-events:none; transition:opacity .3s;}
+.overlay.open{opacity:1; pointer-events:auto;}
+.drawer{position:fixed; top:0; right:0; height:100%; width:min(560px,100%); z-index:210; background:#0f1a15; border-left:1px solid var(--emerald-border-hi); transform:translateX(100%); transition:transform .45s cubic-bezier(.2,.8,.2,1); display:flex; flex-direction:column; box-shadow:-40px 0 100px -20px rgba(0,0,0,.8);}
+.drawer.open{transform:none;}
+.drawer-head{display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:1.2rem 1.5rem; border-bottom:1px solid var(--emerald-border);}
+.drawer-head h3{font-size:1.1rem;}
+.x{background:none; border:1px solid var(--emerald-border); color:var(--cream); width:2.1rem; height:2.1rem; border-radius:50%; font-size:1rem; flex:none; transition:border-color .2s;}
+.x:hover{border-color:var(--emerald-border-hi);}
+.drawer-body{flex:1; overflow:auto; padding:1.5rem;}
+.drawer-media{border-radius:1rem; overflow:hidden; border:1px solid var(--emerald-border); margin-bottom:1.3rem; background:#070c09;}
+.drawer-media img{width:100%; max-height:260px; object-fit:cover;}
+.drawer-media iframe{width:100%; height:380px; border:0; background:#333;}
+.drawer-foot{padding:1rem 1.5rem; border-top:1px solid var(--emerald-border); display:flex; gap:.7rem; flex-wrap:wrap;}
+.lightbox{position:fixed; inset:0; z-index:400; background:rgba(4,7,5,.94); display:none; flex-direction:column; align-items:center; justify-content:center; padding:1rem;}
+.lightbox.open{display:flex;}
+.lightbox img{max-width:min(96vw,900px); max-height:82vh; object-fit:contain; border-radius:.6rem;}
+.lb-cap{margin-top:.8rem; font-size:.85rem; color:var(--cream-dim);}
+.lb-btn{position:absolute; top:50%; transform:translateY(-50%); background:rgba(15,26,21,.8); border:1px solid var(--emerald-border); color:var(--cream); width:2.8rem; height:2.8rem; border-radius:50%; font-size:1.2rem;}
+.lb-prev{left:1rem;} .lb-next{right:1rem;} .lb-close{position:absolute; top:1rem; right:1rem;}
+
+.top-btn{position:fixed; bottom:1.6rem; right:1.6rem; width:3rem; height:3rem; border-radius:50%; background:linear-gradient(135deg,var(--emerald),var(--emerald-2)); color:#062018; border:none; display:flex; align-items:center; justify-content:center; font-size:1.1rem; z-index:90; box-shadow:0 12px 30px -8px rgba(62,207,142,.6); opacity:0; pointer-events:none; transition:opacity .3s, transform .3s;}
+.top-btn.show{opacity:1; pointer-events:auto;} .top-btn:hover{transform:translateY(-3px);}
+
+.reveal{opacity:0; transform:translateY(28px); transition:opacity .8s ease, transform .8s ease;}
+.reveal.show{opacity:1; transform:none;}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:1000px){
+  .a-grid{grid-template-columns:1fr 1fr;} .a-card.wide{grid-column:span 2;}
+  .feature,.da{grid-template-columns:1fr;} .feature-preview,.da-view{border-right:none; border-bottom:1px solid var(--emerald-border);}
+  .tool-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:900px){
+  .hero-grid,.about-grid{grid-template-columns:1fr; gap:2.4rem;}
+  .strip-grid{grid-template-columns:1fr 1fr; margin-top:0;}
+  .nav-links{display:none;} .nav-toggle{display:block;} .nav-mobile.open{display:flex;}
+  .photo-frame{margin:0 auto;} .float-badge.b1{left:0; top:-6%;} .float-badge.b2{right:0; bottom:-4%;}
+}
+@media(max-width:800px){
+  .proj-grid,.stat-grid,.tree-wrap{grid-template-columns:1fr;}
+  section{padding:4.2rem 0;} .contact-box{padding:2.4rem 1.4rem;}
+}
+@media(max-width:620px){
+  .a-grid,.tool-grid{grid-template-columns:1fr;} .a-card.wide{grid-column:auto;}
+  .nav-badge{display:none;} .da-notes,.feature-copy{padding:1.5rem 1.3rem;} .tree-wrap{padding:1.6rem;}
+  table.mat th:nth-child(3),table.mat td:nth-child(3){display:none;}
+  .impact{grid-template-columns:1fr 1fr 1fr;}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none !important; transition:none !important;} html{scroll-behavior:auto;} .reveal{opacity:1; transform:none;}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div>
+
+<!-- NAV -->
+<nav class="navbar" aria-label="Primary">
+  <div class="nav-brand">🌿 Nikhat Momin <span class="nav-badge">IT Engineering Portfolio</span></div>
+  <div class="nav-links">
+    <a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a>
+    <a href="#ewaste">E-Waste &amp; Docs</a><a href="#anatomy">Device Anatomy</a><a href="#philosophy">Philosophy</a>
+  </div>
+  <a href="#contact" class="nav-cta">Contact</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu">☰</button>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a>
+  <a href="#ewaste">E-Waste &amp; Docs</a><a href="#anatomy">Device Anatomy</a><a href="#philosophy">Philosophy</a><a href="#contact">Contact</a>
+</div>
+
+<!-- HERO -->
+<header class="hero" style="padding:9.5rem 0 6.5rem; position:relative; z-index:1;">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-badge reveal">✨ Turning curiosity into experiences, one project at a time.</div>
+      <h1 class="reveal">Hi, I'm Nikhat Momin <span class="grad-text">👋💚</span></h1>
+      <p class="hero-sub reveal">An Information Technology Engineering student who loves transforming ideas into thoughtful digital experiences.</p>
+      <p class="hero-bio reveal">I enjoy building, learning, experimenting, and occasionally spending far too much time fixing a bug that turns out to be a missing semicolon.</p>
+      <div class="quote-box reveal">"Some stories are written with words. Mine happens to be written with code."</div>
+      <div class="btn-row reveal">
+        <a href="#projects" class="btn btn-primary">View My Work</a>
+        <a href="#ewaste" class="btn btn-ghost">E-Waste Assignments</a>
+      </div>
+    </div>
+    <div class="photo-stage reveal">
+      <div class="photo-frame"><!-- ASSET: assets/profile.jpg --><img src="assets/profile.jpg" alt="Nikhat Momin" width="594" height="729"></div>
+      <div class="float-badge b1 glass">🌿 Think green before you code</div>
+      <div class="float-badge b2 glass">IT Student &amp; Developer</div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="strip-grid">
+      <div class="glass strip-card reveal"><div class="lbl">Student Name</div><div class="val">Nikhat Momin</div></div>
+      <div class="glass strip-card reveal"><div class="lbl">Department</div><div class="val">B.Tech Information Technology</div></div>
+      <div class="glass strip-card reveal"><div class="lbl">Knowledge Base</div><div class="val">Web Dev, AI/ML, E-Waste &amp; Sustainability</div></div>
+      <div class="glass strip-card reveal"><div class="lbl">Academic Year</div><div class="val">2026 – Present</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="eyebrow">About</div><h2>More than just another developer.</h2></div>
+    <div class="about-grid">
+      <div class="about-story reveal">
+        <p>I'm the kind of person who gets excited by ideas — the ones that suddenly appear while listening to music, scrolling through random articles, or even in the middle of a conversation.</p>
+        <p>Most of them stay as thoughts. Some become sketches. The lucky ones become projects.</p>
+        <p>I don't believe great software begins with code. I believe it begins with curiosity. Every project I build starts with a simple question: "What if this could be better?"</p>
+        <p>That question has led me through late-night debugging sessions, countless Google searches, moments of frustration, and even bigger moments of excitement when everything finally works.</p>
+        <p>For me, technology has never been just about programming. It's about understanding problems, finding creative solutions, and building things that make someone's day a little easier.</p>
+        <p>I'm still learning, still exploring, and still making mistakes — but I wouldn't trade that journey for anything. Every challenge teaches me something new, and every project reminds me why I chose this path in the first place.</p>
+        <p>This website isn't simply a portfolio. It's a snapshot of where I am today, the projects I'm proud of, and the developer I'm slowly becoming.</p>
+      </div>
+      <div class="pill-grid reveal">
+        <div class="glass pill"><span>💡</span> Curious before confident.</div>
+        <div class="glass pill"><span>🌱</span> Always learning.</div>
+        <div class="glass pill"><span>🎧</span> Music is my favorite debugging companion.</div>
+        <div class="glass pill"><span>✨</span> I believe small improvements create big results.</div>
+        <div class="glass pill"><span>📖</span> I enjoy learning something new every day.</div>
+        <div class="glass pill"><span>🌍</span> I love discovering new places and new perspectives.</div>
+        <div class="glass pill"><span>🤝</span> I believe great things are built together.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEYOND THE SCREEN -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="eyebrow">Off Duty</div><h2>Beyond the screen.</h2></div>
+    <div class="beyond-grid">
+      <div class="glass reveal"><p>Outside of my laptop, life looks a little different. I love getting lost in music that matches my mood, reading stories that make me think differently, and exploring new places whenever I get the chance.</p></div>
+      <div class="glass reveal"><p>I'm someone who notices the little details — whether it's a beautifully designed interface, an elegant animation, or the tiny things that make a product feel effortless to use.</p></div>
+      <div class="glass reveal"><p>I believe inspiration can come from anywhere, and some of my best ideas arrive when I'm not trying to think about code at all.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLKIT -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="eyebrow">Toolkit</div><h2>What I work with.</h2></div>
+    <div class="tool-grid">
+      <div class="glass tool-card reveal"><h4>Languages</h4><div class="chip-row"><span class="chip c1">Java</span><span class="chip c1">Python</span><span class="chip c1">JavaScript</span><span class="chip c1">SQL</span><span class="chip c1">HTML</span><span class="chip c1">CSS</span></div></div>
+      <div class="glass tool-card reveal"><h4>Technologies &amp; Frameworks</h4><div class="chip-row"><span class="chip c2">Flask</span><span class="chip c2">Bootstrap</span><span class="chip c2">REST APIs</span></div></div>
+      <div class="glass tool-card reveal"><h4>Databases</h4><div class="chip-row"><span class="chip c3">MySQL</span><span class="chip c3">SQLite</span></div></div>
+      <div class="glass tool-card reveal"><h4>AI &amp; ML</h4><div class="chip-row"><span class="chip c4">Machine Learning</span><span class="chip c4">NLP</span><span class="chip c4">LangChain</span><span class="chip c4">RAG</span></div></div>
+      <div class="glass tool-card reveal"><h4>Tools &amp; Hosting</h4><div class="chip-row"><span class="chip c5">Git</span><span class="chip c5">GitHub</span><span class="chip c5">VS Code</span><span class="chip c5">PyCharm</span><span class="chip c5">Postman</span><span class="chip c5">Render</span><span class="chip c5">Vercel</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="eyebrow">Featured Work</div><h2>Projects I'm proud of.</h2></div>
+    <p class="proj-intro reveal">Every project here represents something I wanted to understand, improve, or create. Some challenged my problem-solving skills. Some introduced me to completely new technologies. All of them helped me become a better developer than I was before. I don't build projects just to fill a portfolio — I build them because each one teaches me something worth remembering.</p>
+    <div class="proj-grid">
+      <div class="glass proj-card reveal">
+        <div class="proj-cat">AI / NLP &amp; Web Development</div>
+        <h3>Multilingual AI Chatbot</h3>
+        <p>An AI assistant built with GPT-4 and IndicNLP for regional language accessibility, structured with complete technical and financial feasibility analysis.</p>
+        <div class="chip-row"><span class="chip c1">Python</span><span class="chip c1">GPT-4</span><span class="chip c1">IndicNLP</span><span class="chip c1">REST API</span><span class="chip c1">Flask</span></div>
+        <div class="proj-btns"><!-- TODO: replace # with your live demo + GitHub URLs --><a href="#" class="proj-btn solid">Live Demo</a><a href="#" class="proj-btn">GitHub Source Code</a></div>
+      </div>
+      <div class="glass proj-card reveal">
+        <div class="proj-cat">Web Application</div>
+        <h3>E-Waste &amp; Sustainability Portal</h3>
+        <p>An interactive web portal focused on e-waste awareness, gadget lifespan tracking, and promoting responsible electronic hardware recycling.</p>
+        <div class="chip-row"><span class="chip c2">JavaScript</span><span class="chip c2">HTML5/CSS3</span><span class="chip c2">Bootstrap</span><span class="chip c2">Vercel</span></div>
+        <div class="proj-btns"><a href="https://ecoscrap-ewaste.vercel.app/" target="_blank" rel="noopener" class="proj-btn solid">Live Demo</a><a href="#" class="proj-btn">GitHub Source Code</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ E-WASTE HUB ============ -->
+<section id="ewaste">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="eyebrow">Academic Submissions</div><h2>E-Waste &amp; Sustainability Hub</h2>
+      <p>Everything I built, investigated and submitted for E-Waste &amp; Environmental Management — open any card for the full story.</p></div>
+
+    <div class="stat-grid">
+      <div class="glass stat-card reveal"><div class="stat-num" data-count="5">0</div><div class="stat-lbl">Billion+ unused phones sitting idle worldwide</div></div>
+      <div class="glass stat-card reveal"><div class="stat-num">TCLP</div><div class="stat-lbl">Standard test used to detect lead toxicity in e-waste</div></div>
+      <div class="glass stat-card reveal"><div class="stat-num">MH</div><div class="stat-lbl">Maharashtra ranks among India's top WEEE-generating states</div></div>
+    </div>
+
+    <!-- FEATURED: ECOSCRAP -->
+    <article class="glass feature reveal" id="ecoscrap" aria-labelledby="ecoTitle">
+      <div class="feature-preview">
+        <div class="browser">
+          <div class="browser-bar"><div class="dots"><i></i><i></i><i></i></div><div class="url">ecoscrap-ewaste.vercel.app</div></div>
+          <div class="browser-body" id="ecoBody">
+            <div class="preview-cta">
+              <h4>EcoScrap</h4>
+              <p>Live preview loads on demand to keep the page fast.</p>
+              <button class="btn btn-primary" id="ecoLoad">Load live preview</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="feature-copy">
+        <span class="badge-gold">★ Green Hackathon · Highlight</span>
+        <h3 id="ecoTitle">EcoScrap — turning e-waste into a resource, not a dead end</h3>
+        <p>My Green Hackathon submission: a web platform that helps people understand what's inside their old electronics and send them toward responsible recovery instead of the bin.</p>
+        <div class="impact">
+          <div><b>Live</b><span>Deployed on Vercel</span></div>
+          <div><b>Green</b><span>Hackathon entry</span></div>
+          <div><b>Open</b><span>Try it in-browser</span></div>
+        </div>
+        <div class="acc" data-single>
+          <div class="acc-item open"><button class="acc-btn">Why I built it</button><div class="acc-panel"><div class="acc-inner"><p>India generates millions of tonnes of e-waste each year, and most of it is handled informally. EcoScrap makes the responsible option the easy one.</p></div></div></div>
+          <div class="acc-item"><button class="acc-btn">Key takeaways</button><div class="acc-panel"><div class="acc-inner"><ul><li>Design for the user's next action, not just awareness.</li><li>Small, clear steps beat long lectures on sustainability.</li><li>Shipping early on Vercel made feedback fast.</li></ul></div></div></div>
+        </div>
+        <div class="btn-row"><a class="btn btn-primary" href="https://ecoscrap-ewaste.vercel.app/" target="_blank" rel="noopener">Launch EcoScrap ↗</a></div>
+      </div>
+    </article>
+    <!-- Edit the three .impact numbers and the takeaways above with your real hackathon results. -->
+
+    <!-- ASSIGNMENTS -->
+    <div class="sec-head reveal" style="margin-bottom:1.8rem;"><div class="eyebrow">Assignments</div><h2>All submissions, one place.</h2></div>
+    <div class="filters" id="filters" role="tablist" aria-label="Filter assignments"></div>
+    <div class="a-grid" id="aGrid"></div>
+  </div>
+</section>
+
+<!-- ============ DEVICE ANATOMY ============ -->
+<section id="anatomy" style="padding-top:2rem;">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="eyebrow">Lab Investigation · 10/10</div><h2>Device Anatomy 2.0 — inside a dead pair of earphones.</h2>
+      <p>Group 6 opened a non-functional Vivo wired earphone and traced every material back to its job, its value and its risk. Browse the worksheet on the left; the findings are on the right.</p></div>
+
+    <div class="glass da reveal">
+      <div class="da-view">
+        <div class="da-stage" id="daStage" tabindex="0" role="button" aria-label="Open page in lightbox">
+          <img id="daImg" src="assets/anatomy-01.jpg" alt="Worksheet page 1">
+          <span class="zoom">⤢ Zoom</span>
+        </div>
+        <div class="da-cap" id="daCap">Page 1 of 7 — Group details</div>
+        <div class="thumbs" id="thumbs"></div>
+      </div>
+      <div class="da-notes">
+        <div class="eyebrow">Breakdown notes</div>
+        <h3>Vivo wired earphones</h3>
+        <p>Failed through damage. Opened with a cutter and compass in class, then sorted into parts.</p>
+        <div class="meta"><span class="grade">Score 10 / 10</span><span>Group 6 · TE INFT</span><span>Dhanraj · Devangini · Swapnil · Nikhat</span></div>
+
+        <div class="acc" data-single>
+          <div class="acc-item open"><button class="acc-btn">Components &amp; materials</button><div class="acc-panel"><div class="acc-inner">
+            <table class="mat"><thead><tr><th>Part</th><th>Material</th><th>Why it fits</th></tr></thead><tbody>
+              <tr><td>Cable conductor</td><td>Copper + enamel</td><td>Conductive and flexible</td></tr>
+              <tr><td>Outer insulation</td><td>PVC / TPE</td><td>Light, flexible, insulating</td></tr>
+              <tr><td>Inline PCB</td><td>FR-4 + copper</td><td>Rigid support, insulated tracks</td></tr>
+              <tr><td>Microphone</td><td>Metal, plastic</td><td>Small and lightweight</td></tr>
+              <tr><td>Push-button</td><td>Metal contacts</td><td>Reliable contact, insulated body</td></tr>
+              <tr><td>Speaker driver</td><td>Neodymium magnet, copper coil</td><td>Strong field in a tiny space</td></tr>
+            </tbody></table></div></div></div>
+          <div class="acc-item"><button class="acc-btn">Hazardous elements</button><div class="acc-panel"><div class="acc-inner"><ul>
+            <li><span class="haz">PCB</span> Can leach toxic material into soil and water. Our most concerning component.</li>
+            <li><span class="haz">PVC cable</span> Releases harmful fumes if burned. Never burn.</li>
+            <li><span class="haz">Magnet</span> Small but strong; hard to dispose of, recycle properly.</li>
+            <li><span class="haz">Copper strands</span> Sharp ends; handle carefully.</li></ul></div></div></div>
+          <div class="acc-item"><button class="acc-btn">Recyclability &amp; value</button><div class="acc-panel"><div class="acc-inner">
+            <p style="margin-bottom:.6rem;">Most valuable: copper wires, neodymium in the speaker driver, engineering plastics.</p>
+            <span class="rec">Cable → Repair, Recycle</span><span class="rec">Speaker → Reuse, Refurbish, Recycle</span><span class="rec">PCB → Repair, Refurbish, Recycle</span><span class="rec">Housing → Reuse, Refurbish, Recycle</span>
+            <p style="margin-top:.6rem;">The most valuable material isn't always the easiest to recover, because it's hard to separate from everything around it.</p></div></div></div>
+          <div class="acc-item"><button class="acc-btn">Redesign for disassembly</button><div class="acc-panel"><div class="acc-inner"><ul>
+            <li>Glued housing → <b>screws or snap-fit casing</b> for easy repair.</li>
+            <li>Soldered wires → <b>detachable connectors</b> for easy replacement.</li>
+            <li>Mixed materials → <b>separate modules</b> for easy recycling.</li></ul></div></div></div>
+          <div class="acc-item"><button class="acc-btn">Final verdict</button><div class="acc-panel"><div class="acc-inner">
+            <p>We recommend designing for easy repair because it extends product life and reduces e-waste. After this activity we wouldn't call the device "waste" — its parts can be repaired, reused or recycled.</p></div></div></div>
+        </div>
+        <div class="btn-row" style="margin-top:1.4rem;"><a class="proj-btn solid" href="assets/device-anatomy.pdf" target="_blank" rel="noopener">Open full PDF</a></div>
+      </div>
+    </div>
+
+    <!-- Inspection photos: assets/earphone-parts.jpg, team-inspecting.jpg, team-lab.jpg, lab-wide.jpg -->
+    <div class="da-photos reveal" id="daPhotos"></div>
+  </div>
+</section>
+
+<!-- PLEDGE TREE -->
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div class="glass tree-wrap reveal" style="margin-top:0;">
+      <div class="tree-svg-box">
+        <svg id="pledgeTree" width="230" height="280" viewBox="0 0 230 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pledge tree that grows a leaf per signature">
+          <path d="M115 275 C115 200 105 190 115 130 C125 90 110 60 115 15" stroke="#3f5f4f" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <g id="leafLayer"></g>
+        </svg>
+      </div>
+      <div>
+        <div class="eyebrow">Guestbook</div>
+        <h3 style="margin:.6rem 0 .5rem; font-size:1.35rem;">Sign the sustainability pledge</h3>
+        <p style="margin-bottom:1rem;">Add your name beside mine and watch the pledge tree grow a new leaf for every promise made.</p>
+        <div class="guest-form">
+          <input type="text" id="guestName" placeholder="Your name" maxlength="30" aria-label="Your name">
+          <button class="btn btn-primary" id="signBtn" style="width:fit-content;">🌿 Sign the Pledge</button>
+        </div>
+        <div style="margin-top:1rem;"><span class="guest-count" id="guestCount">0 people have signed</span><div class="guest-list" id="guestList"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy">
+  <div class="wrap"><div class="glass phil-box reveal">
+    <h2>"I don't chase perfection. I chase progress."</h2>
+    <p>Because every project begins as an idea, every mistake becomes a lesson, and every lesson brings me one step closer to becoming the developer I aspire to be.</p>
+  </div></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head reveal" style="max-width:44rem;"><div class="eyebrow">What's Next</div>
+      <p style="font-size:1.02rem; margin-top:.8rem;">I'm still at the beginning of my journey, and that's what excites me the most. There are countless technologies to explore, problems to solve, and ideas waiting to become reality. I'm looking forward to opportunities where I can keep learning, contribute to meaningful work, and collaborate with people who love building great things as much as I do. Because I believe the best projects — are always the ones you haven't built yet.</p></div>
+    <div class="glass contact-box reveal">
+      <h2>Let's Create Something Meaningful</h2>
+      <p>Whether you have an idea, an opportunity, or simply want to say hello, I'd love to hear from you. My inbox is always open. Let's build something we'll both be proud of.</p>
+      <div class="btn-row" style="justify-content:center;">
+        <a href="mailto:nikhatmomin250@gmail.com" class="btn btn-primary">✉️ Send an Email</a>
+        <a href="#" class="btn btn-ghost">Connect on LinkedIn</a><!-- TODO: add LinkedIn URL -->
+      </div>
+    </div>
+  </div>
+</section>
+<footer>🌿 Designed &amp; built by Nikhat Momin — Think green, code thoughtfully.</footer>
+<button class="top-btn" id="topBtn" aria-label="Back to top">↑</button>
+
+<!-- DRAWER -->
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle">
+  <div class="drawer-head"><h3 id="dTitle">Details</h3><button class="x" id="dClose" aria-label="Close">✕</button></div>
+  <div class="drawer-body" id="dBody"></div>
+  <div class="drawer-foot" id="dFoot"></div>
+</aside>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="x lb-close" id="lbClose" aria-label="Close">✕</button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+  <img id="lbImg" alt="">
+  <button class="lb-btn lb-next" id="lbNext" aria-label="Next">›</button>
+  <div class="lb-cap" id="lbCap"></div>
+</div>
+
+<script>
+/* ================= DATA — edit here =================
+   Every asset path below points into /assets (copy the folder next to index.html). */
+const ASSIGNMENTS = [
+  { id:'ecoscrap', cat:'Hackathon', title:'EcoScrap — Green Hackathon', date:'2026', wide:true, glyph:'🏆', score:'Featured',
+    blurb:'A live web platform that steers old electronics toward recovery instead of the bin.',
+    img:null, links:[['Launch EcoScrap ↗','https://ecoscrap-ewaste.vercel.app/',true]],
+    sections:[['Summary','<p>My Green Hackathon entry, deployed on Vercel. It makes the responsible option for e-waste the easy one.</p>'],['Takeaways','<ul><li>Design around the next action.</li><li>Ship early, iterate on feedback.</li></ul>']] },
+  { id:'anatomy', cat:'Lab', title:'Device Anatomy 2.0', date:'2 Sep 2026', glyph:'🔬', score:'10 / 10', img:'assets/earphone-parts.jpg',
+    blurb:'Dismantled a dead Vivo earphone and mapped its materials, hazards and redesign.',
+    jump:'#anatomy', links:[['Open PDF','assets/device-anatomy.pdf']],
+    sections:[['What we did','<p>Group 6 opened a non-functional wired earphone, identified six components, their materials and the reason each is used.</p>'],['Findings','<ul><li>Top value: copper, neodymium, engineering plastics.</li><li>Biggest concern: the PCB.</li><li>Recommendation: design for easy repair.</li></ul>']] },
+  { id:'ecocycle', cat:'Campaign', title:'EcoCycle 2026 Campaign', date:'14 Oct 2026', wide:true, glyph:'📣', score:'78 responses', img:'assets/team-lab.jpg',
+    blurb:'“Give Your Gadgets a Responsible Goodbye” — a sort-and-quiz dashboard, reels and posters.',
+    links:[['Open dashboard ↗','https://ecocycle-2026.netlify.app/',true],['Instagram ↗','https://www.instagram.com/gadgets2green'],['Report PDF','assets/ecocycle-report.pdf']],
+    sections:[['What we built','<ul><li>Dashboard: drag 10 items into bins, then an 8-question quiz.</li><li>70%+ earns an E-Waste Champion certificate and a place on a live leaderboard.</li><li>Awareness reels, QR-code posters and the @gadgets2green Instagram page.</li></ul>'],['Results','<ul><li>78 responses · 49 certificates issued</li><li>Average combined score 75%</li><li>1.4 attempts per participant</li></ul>'],['Team','<p>Dhanraj Mogera, Pranitha Shetty, Vishal Prajapati, Mohd Altamash Ansari, Meet Alshi, Nikhat Momin, Tanvee Kamble, Shriya Vibhute. Guide: Prof. Nilima Main.</p>']] },
+  { id:'forecast', cat:'Data', title:'E-Waste 2050 Forecast Dashboard', date:'2026', glyph:'📈', score:'Interactive',
+    blurb:'“Can we predict the future of e-waste?” History-to-forecast charts with country outlooks.',
+    embed:'assets/../ewaste-2050-dashboard.html', links:[['Open full dashboard ↗','ewaste-2050-dashboard.html',true]],
+    sections:[['About','<p>An interactive forecast built with Chart.js: history to forecast, signals and patterns, a country explorer, and an honest look at uncertainty.</p>']] },
+  { id:'pledge', cat:'Documents', title:'Sustainability Pledge', date:'29 Jul 2026', glyph:'📜', score:'Signed',
+    blurb:'A personal commitment to responsible engineering and disposal of e-waste.',
+    pdf:'assets/sustainability-pledge.pdf', links:[['Download PDF','assets/sustainability-pledge.pdf']],
+    sections:[['About','<p>Signed and dated declaration, Roll No. 2410180064: use technology wisely, reduce waste, dispose of e-waste responsibly.</p>']] },
+  { id:'crossword', cat:'Documents', title:'E-Waste Mastermind Crossword', date:'29 Jul 2026', glyph:'🧩', score:'Activity 1',
+    blurb:'Covers TCLP lead testing, state-wise WEEE statistics and CFL classification.',
+    pdf:'assets/ewaste-crossword.pdf', links:[['Download PDF','assets/ewaste-crossword.pdf']],
+    sections:[['About','<p>Crossword activity on TCLP lead testing, WEEE statistics across Indian states, and where CFL lighting sits within e-waste.</p>']] },
+  { id:'quiz1', cat:'Quizzes', title:'Quiz — E-waste Recycling', date:'2026', glyph:'✅', score:'100%', img:'assets/quiz-ewaste.jpg',
+    blurb:'10/10 correct with a 10-question streak after the plant video.',
+    sections:[['Result','<p>6900 score, 100% accuracy, 10 correct, 0 incorrect, 10 streak.</p>']] },
+  { id:'quiz2', cat:'Quizzes', title:'Quiz — Recycling of E-waste', date:'2026', glyph:'♻️', score:'90%', img:'assets/quiz-recycling.jpg',
+    blurb:'9 of 10 correct, including the Noranda smelting process.',
+    sections:[['Result','<p>6220 score, 90% accuracy, 9 correct, 1 incorrect, about 23 s per question.</p>']] }
+];
+const ANATOMY = [
+  'Page 1 — Group details','Page 2 — Device profile, anatomy and materials','Page 3 — Value, hazards and handling','Page 4 — End-of-life decisions and redesign',
+  'Page 5 — Redesign sketch, e-waste journey, circular strategy','Page 6 — Viva and final group verdict','Page 7 — Reflection'];
+const PHOTOS = [['assets/earphone-parts.jpg','Dismantled parts: drivers, PCB, housings, cable'],['assets/team-inspecting.jpg','Group inspecting the earphone'],['assets/team-lab.jpg','Working in the lab']];
+
+/* ================= HELPERS ================= */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const lock=v=>document.body.classList.toggle('locked',v);
+
+/* ================= ASSIGNMENT GRID ================= */
+const cats=['All',...new Set(ASSIGNMENTS.map(a=>a.cat))];
+const aGrid=$('#aGrid'), filters=$('#filters');
+filters.innerHTML=cats.map((c,i)=>`<button class="filter${i?'':' on'}" data-c="${c}" role="tab">${c}<small>${c==='All'?ASSIGNMENTS.length:ASSIGNMENTS.filter(a=>a.cat===c).length}</small></button>`).join('');
+aGrid.innerHTML=ASSIGNMENTS.map(a=>`
+ <button class="glass a-card${a.wide?' wide':''}" data-id="${a.id}" data-cat="${a.cat}">
+  <div class="a-thumb">${a.img?`<img src="${a.img}" alt="" loading="lazy">`:`<div class="glyph">${a.glyph}</div>`}<span class="a-tag">${a.cat}</span><span class="a-score">${a.score}</span></div>
+  <div class="a-body"><span class="a-date">${a.date}</span><h3>${a.title}</h3><p>${a.blurb}</p><span class="a-more">View details →</span></div>
+ </button>`).join('');
+filters.addEventListener('click',e=>{
+  const b=e.target.closest('.filter'); if(!b) return;
+  $$('.filter').forEach(f=>f.classList.toggle('on',f===b));
+  $$('.a-card').forEach(c=>{const show=b.dataset.c==='All'||c.dataset.cat===b.dataset.c; c.hidden=!show; if(show) c.animate([{opacity:0,transform:'translateY(10px)'},{opacity:1,transform:'none'}],{duration:350});});
+});
+aGrid.addEventListener('pointermove',e=>{const c=e.target.closest('.a-card'); if(!c) return; const r=c.getBoundingClientRect(); c.style.setProperty('--mx',(e.clientX-r.left)+'px'); c.style.setProperty('--my',(e.clientY-r.top)+'px');});
+aGrid.addEventListener('click',e=>{const c=e.target.closest('.a-card'); if(c) openDrawer(c.dataset.id);});
+
+/* ================= DRAWER ================= */
+let lastFocus;
+function openDrawer(id){
+  const a=ASSIGNMENTS.find(x=>x.id===id); lastFocus=document.activeElement;
+  $('#dTitle').textContent=a.title;
+  let media='';
+  if(a.pdf) media=`<div class="drawer-media"><iframe src="${a.pdf}" title="${a.title}"></iframe></div>`;
+  else if(a.embed) media=`<div class="drawer-media"><iframe src="ewaste-2050-dashboard.html" title="${a.title}" loading="lazy"></iframe></div>`;
+  else if(a.img) media=`<div class="drawer-media"><img src="${a.img}" alt="${a.title}"></div>`;
+  const acc=a.sections.map((s,i)=>`<div class="acc-item${i===0?' open':''}"><button class="acc-btn">${s[0]}</button><div class="acc-panel"><div class="acc-inner">${s[1]}</div></div></div>`).join('');
+  $('#dBody').innerHTML=`<div class="meta" style="margin-top:0"><span>${a.cat}</span><span>${a.date}</span><span class="grade">${a.score}</span></div>${media}<p style="margin-bottom:1.2rem">${a.blurb}</p><div class="acc" data-single>${acc}</div>`;
+  const foot=[...(a.links||[]).map(l=>`<a class="proj-btn${l[2]?' solid':''}" href="${l[1]}" target="_blank" rel="noopener">${l[0]}</a>`)];
+  if(a.jump) foot.unshift(`<a class="proj-btn solid" href="${a.jump}" data-close>See the inspection ↓</a>`);
+  $('#dFoot').innerHTML=foot.join('');
+  $('#overlay').classList.add('open'); $('#drawer').classList.add('open'); lock(true); $('#dClose').focus();
+}
+function closeDrawer(){ $('#overlay').classList.remove('open'); $('#drawer').classList.remove('open'); lock(false); $('#dBody').innerHTML=''; lastFocus&&lastFocus.focus&&lastFocus.focus(); }
+$('#dClose').onclick=closeDrawer; $('#overlay').onclick=closeDrawer;
+$('#dFoot').addEventListener('click',e=>{if(e.target.closest('[data-close]')) closeDrawer();});
+
+/* ================= ACCORDIONS (delegated) ================= */
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.acc-btn'); if(!b) return;
+  const item=b.parentElement, grp=item.parentElement, was=item.classList.contains('open');
+  if(grp.hasAttribute('data-single')) grp.querySelectorAll('.acc-item').forEach(i=>i.classList.remove('open'));
+  item.classList.toggle('open',!was);
+});
+
+/* ================= ECOSCRAP LIVE PREVIEW ================= */
+$('#ecoLoad').onclick=()=>{ const f=document.createElement('iframe'); f.src='https://ecoscrap-ewaste.vercel.app/'; f.title='EcoScrap live preview'; f.loading='lazy'; $('#ecoBody').appendChild(f); };
+
+/* ================= DEVICE ANATOMY VIEWER ================= */
+let daIdx=0;
+const thumbs=$('#thumbs');
+thumbs.innerHTML=ANATOMY.map((t,i)=>`<button class="thumb${i?'':' on'}" data-i="${i}" aria-label="${t}"><img src="assets/anatomy-0${i+1}.jpg" alt="" loading="lazy"></button>`).join('');
+function showAnatomy(i){ daIdx=i; const im=$('#daImg'); im.style.opacity=0; setTimeout(()=>{im.src=`assets/anatomy-0${i+1}.jpg`; im.alt=ANATOMY[i]; im.style.opacity=1;},150); $('#daCap').textContent=ANATOMY[i]; $$('.thumb').forEach(t=>t.classList.toggle('on',+t.dataset.i===i)); }
+thumbs.addEventListener('click',e=>{const t=e.target.closest('.thumb'); if(t) showAnatomy(+t.dataset.i);});
+$('#daStage').onclick=()=>openLB(ANATOMY.map((t,i)=>[`assets/anatomy-0${i+1}.jpg`,t]),daIdx);
+$('#daStage').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault(); $('#daStage').click();}};
+$('#daPhotos').innerHTML=PHOTOS.map((p,i)=>`<button data-i="${i}" aria-label="${p[1]}"><img src="${p[0]}" alt="${p[1]}" loading="lazy"></button>`).join('');
+$('#daPhotos').addEventListener('click',e=>{const b=e.target.closest('button'); if(b) openLB(PHOTOS,+b.dataset.i);});
+
+/* ================= LIGHTBOX ================= */
+let lbSet=[], lbI=0;
+function openLB(set,i){ lbSet=set; lbI=i; paintLB(); $('#lb').classList.add('open'); lock(true); }
+function paintLB(){ $('#lbImg').src=lbSet[lbI][0]; $('#lbImg').alt=lbSet[lbI][1]; $('#lbCap').textContent=`${lbSet[lbI][1]} (${lbI+1}/${lbSet.length})`; }
+function stepLB(d){ lbI=(lbI+d+lbSet.length)%lbSet.length; paintLB(); }
+function closeLB(){ $('#lb').classList.remove('open'); lock(!!$('#drawer.open')); }
+$('#lbClose').onclick=closeLB; $('#lbPrev').onclick=()=>stepLB(-1); $('#lbNext').onclick=()=>stepLB(1);
+$('#lb').addEventListener('click',e=>{if(e.target.id==='lb') closeLB();});
+document.addEventListener('keydown',e=>{
+  if($('#lb').classList.contains('open')){ if(e.key==='Escape') closeLB(); if(e.key==='ArrowLeft') stepLB(-1); if(e.key==='ArrowRight') stepLB(1); }
+  else if(e.key==='Escape' && $('#drawer').classList.contains('open')) closeDrawer();
+});
+
+/* ================= NAV, SCROLL, REVEAL, COUNT ================= */
+$('#navToggle').onclick=()=>$('#navMobile').classList.toggle('open');
+$$('#navMobile a').forEach(a=>a.onclick=()=>$('#navMobile').classList.remove('open'));
+const secs=['about','skills','projects','ewaste','anatomy','philosophy'].map(id=>document.getElementById(id));
+addEventListener('scroll',()=>{
+  let cur=''; secs.forEach(s=>{if(s&&scrollY>=s.offsetTop-220) cur=s.id;});
+  $$('.nav-links a').forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+cur));
+  $('#topBtn').classList.toggle('show',scrollY>600);
+  const h=document.documentElement.scrollHeight-innerHeight; $('#progress').style.width=(h>0?scrollY/h*100:0)+'%';
+},{passive:true});
+$('#topBtn').onclick=()=>scrollTo({top:0,behavior:'smooth'});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show'); io.unobserve(e.target);}}),{threshold:.12});
+$$('.reveal').forEach(el=>io.observe(el));
+const ce=$('[data-count]');
+if(ce){ let started=false; new IntersectionObserver((es,o)=>es.forEach(e=>{ if(e.isIntersecting&&!started){ started=true; let v=0; const t=+ce.dataset.count; const step=()=>{v++; ce.textContent=v+'+'; if(v<t) setTimeout(step,90);}; step(); o.disconnect(); }}),{threshold:.4}).observe(ce); }
+
+/* ================= PLEDGE TREE (localStorage; wrapped in try/catch) =================
+   To make signatures shared across visitors, swap load/save for Firebase/Supabase. */
+const leafLayer=$('#leafLayer'), guestList=$('#guestList'), guestCount=$('#guestCount');
+const leafPos=[[115,110,-1],[100,95,1],[130,90,-1],[112,70,1],[95,60,-1],[128,55,1],[115,35,-1],[100,25,1],[130,25,-1],[118,150,1],[98,140,-1],[132,135,1],[108,175,-1],[125,180,1],[95,190,-1]];
+function leaf(x,y,f,name,d){ const g=document.createElementNS('http://www.w3.org/2000/svg','g'); g.setAttribute('transform',`translate(${x},${y}) scale(${f},1)`); g.style.opacity=0; const t=document.createElementNS('http://www.w3.org/2000/svg','title'); t.textContent=name; const p=document.createElementNS('http://www.w3.org/2000/svg','path'); p.setAttribute('d','M0 0 C14 -4 22 8 10 18 C0 24 -10 12 0 0 Z'); p.setAttribute('fill','#3ecf8e'); p.setAttribute('opacity','.85'); g.append(t,p); leafLayer.appendChild(g); setTimeout(()=>{g.style.transition='opacity .6s'; g.style.opacity=1;},d); }
+let guests=[]; try{guests=JSON.parse(localStorage.getItem('pledge-signatures')||'[]');}catch(e){}
+function renderGuests(){ leafLayer.innerHTML=''; guestList.innerHTML=''; guestCount.textContent=guests.length+(guests.length===1?' person has signed':' people have signed');
+  guests.forEach((n,i)=>{ const p=leafPos[i%leafPos.length]; leaf(p[0],p[1],p[2],n,i*40); const c=document.createElement('span'); c.className='guest-name'; c.textContent=n; guestList.appendChild(c); }); }
+function sign(){ const i=$('#guestName'), n=i.value.trim(); if(!n) return; guests.push(n); guests=guests.slice(-15); try{localStorage.setItem('pledge-signatures',JSON.stringify(guests));}catch(e){} i.value=''; renderGuests(); }
+$('#signBtn').onclick=sign; $('#guestName').addEventListener('keydown',e=>{if(e.key==='Enter') sign();});
+renderGuests();
+</script>
+</body>
+</html>
